@@ -51,4 +51,45 @@ export class Login {
       .subscribe(observer);
   }
 
+  // Input field label highlighter state tracking
+  activeFocus = signal<string | null>(null);
+
+  // Parallax dynamic vector tracking
+  xAxis = signal<number>(0);
+  yAxis = signal<number>(0);
+  isHoveringPanel = signal<boolean>(false);
+
+  setFocus(inputName: string) {
+    this.activeFocus.set(inputName);
+  }
+
+  clearFocus() {
+    this.activeFocus.set(null);
+  }
+
+  onLoginSubmit(event: Event) {
+    event.preventDefault();
+    // Insert authentication backend payload stream here
+  }
+
+  onMouseMove(e: MouseEvent) {
+    this.isHoveringPanel.set(true);
+    this.xAxis.set((window.innerWidth / 2 - e.pageX) / 50);
+    this.yAxis.set((window.innerHeight / 2 - e.pageY) / 50);
+  }
+
+  onMouseLeave() {
+    this.isHoveringPanel.set(false);
+    this.xAxis.set(0);
+    this.yAxis.set(0);
+  }
+
+  getCardTransform(index: number): string {
+    if (!this.isHoveringPanel()) {
+      return 'translate(0px, 0px)';
+    }
+    const depth = index * 0.2;
+    return `translate(${this.xAxis() * depth}px, ${this.yAxis() * depth}px)`;
+  }
+
 }

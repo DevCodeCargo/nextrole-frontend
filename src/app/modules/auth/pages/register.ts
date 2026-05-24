@@ -12,43 +12,48 @@ import { ApiResponse } from '../../../platform/models/api/api.model';
 })
 export class Register {
 
-  model!: LoginRequest;
+  // Input focus trackers
+  activeFocus = signal<string | null>(null);
 
-  private authService = inject(AuthService);
+  // Parallax coordinates tracking
+  xAxis = signal<number>(0);
+  yAxis = signal<number>(0);
+  isHoveringPanel = signal<boolean>(false);
 
-  errorMessage: string = "";
-  isLoading = signal(false);
-
-  constructor() {
-    this.model = {
-      username: "",
-      password: ""
-    }
+  setFocus(inputName: string) {
+    this.activeFocus.set(inputName);
   }
 
-  onSubmit(): void {
-    this.errorMessage = '';
-    this.isLoading.set(true);
+  clearFocus() {
+    this.activeFocus.set(null);
+  }
 
-    const observer: Partial<Observer<ApiResponse<LoginData>>> = {
-      next: (res) => {
-        console.log('Login success', res);
-        // later: store token + navigate
-      },
-      error: (err) => {
-        if (err.error?.message) {
-          this.errorMessage = err.error.message;
-        } else {
-          this.errorMessage = 'Something went wrong. Please try again.';
-        }
-      }
-    };
+  onRegisterSubmit(event: Event) {
+    event.preventDefault();
+    // Insert signup authentication logic here
+  }
 
-    this.authService.login(this.model)
-      .pipe(
-        finalize(() => this.isLoading.set(false))
-      )
-      .subscribe(observer);
+  // Modern Parallax Event Processing
+  onMouseMove(e: MouseEvent) {
+    this.isHoveringPanel.set(true);
+    this.xAxis.set((window.innerWidth / 2 - e.pageX) / 50);
+    this.yAxis.set((window.innerHeight / 2 - e.pageY) / 50);
+  }
+
+  onMouseLeave() {
+    this.isHoveringPanel.set(false);
+    this.xAxis.set(0);
+    this.yAxis.set(0);
+  }
+
+  getCardTransform(index: number): string {
+    if (!this.isHoveringPanel()) {
+      return 'translate(0px, 0px)';
+    }
+    const depth = index * 0.2;
+    const xMove = this.xAxis() * depth;
+    const yMove = this.yAxis() * depth;
+    return `translate(${xMove}px, ${yMove}px)`;
   }
 
 }

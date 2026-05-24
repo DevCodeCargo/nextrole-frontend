@@ -1,4 +1,226 @@
-Register Page
-<i class="ph ph-briefcase text-xl text-blue-500"></i>
+<style>
+  .large-card-shadow {
+    box-shadow: 0 4px 20px -2px rgba(47, 42, 36, 0.05), 0 2px 8px -1px rgba(47, 42, 36, 0.03);
+  }
 
-<i class="ph-bold ph-user text-2xl text-red-500"></i>
+  .transition-soft {
+    transition: all 200ms ease-out;
+  }
+
+  .hover-card:hover {
+    box-shadow: 0 12px 30px -5px rgba(47, 42, 36, 0.08);
+  }
+
+  .solarized-gradient {
+    background: linear-gradient(135deg, #fcf9f2 0%, #f0eee7 100%);
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+</style>
+
+<main class="flex-grow flex flex-col md:flex-row max-w-max-width mx-auto w-full items-stretch">
+  <section class="w-full md:w-[45%] flex flex-col justify-center px-section-padding-mobile md:px-12 py-12">
+    <div class="max-w-[440px] mx-auto w-full">
+      <div
+        class="bg-surface-container-low p-8 md:p-10 rounded-xl large-card-shadow border border-border-default transition-soft">
+        <div class="mb-8 flex items-center gap-2">
+          <div class="w-8 h-8 bg-primary rounded-lg flex items-center justify-center text-white">
+            <i class="ph-fill ph-rocket-launch text-[20px]"></i>
+          </div>
+          <span class="font-headline-md text-headline-md font-bold text-primary">NextRole</span>
+        </div>
+
+        <div class="mb-8">
+          <h2 class="font-headline-md text-headline-md text-text-primary mb-2">Create Your Account</h2>
+          <p class="font-body-sm text-body-sm text-text-secondary">Let's get you closer to your next opportunity.</p>
+        </div>
+
+        <form class="space-y-5" (ngSubmit)="onRegisterSubmit($event)">
+          <div class="space-y-1.5">
+            <label class="font-label-tiny text-label-tiny text-text-muted uppercase tracking-wider">Email
+              Address</label>
+            <input
+              class="w-full h-[48px] px-4 bg-surface-variant/50 border border-border-default rounded-lg font-body-sm text-text-muted cursor-not-allowed outline-hidden"
+              readonly type="email" value="alex.weaver@example.com" />
+          </div>
+
+          <div class="space-y-1.5">
+            <label class="font-label-tiny text-label-tiny uppercase tracking-wider transition-colors duration-200"
+              [ngClass]="activeFocus() === 'name' ? 'text-primary' : 'text-text-muted'">Full Name</label>
+            <input
+              class="w-full h-[48px] px-4 bg-white border border-border-default rounded-lg font-body-sm text-text-primary transition-soft focus:ring-2 focus:ring-primary/20 focus:border-primary outline-hidden"
+              placeholder="Alex Weaver" type="text" (focus)="setFocus('name')" (blur)="clearFocus()" />
+          </div>
+
+          <div class="space-y-1.5">
+            <label class="font-label-tiny text-label-tiny uppercase tracking-wider transition-colors duration-200"
+              [ngClass]="activeFocus() === 'password' ? 'text-primary' : 'text-text-muted'">Password</label>
+            <input
+              class="w-full h-[48px] px-4 bg-white border border-border-default rounded-lg font-body-sm text-text-primary transition-soft focus:ring-2 focus:ring-primary/20 focus:border-primary outline-hidden"
+              placeholder="••••••••" type="password" (focus)="setFocus('password')" (blur)="clearFocus()" />
+          </div>
+
+          <div class="space-y-1.5">
+            <label class="font-label-tiny text-label-tiny uppercase tracking-wider transition-colors duration-200"
+              [ngClass]="activeFocus() === 'confirmPassword' ? 'text-primary' : 'text-text-muted'">Confirm
+              Password</label>
+            <input
+              class="w-full h-[48px] px-4 bg-white border border-border-default rounded-lg font-body-sm text-text-primary transition-soft focus:ring-2 focus:ring-primary/20 focus:border-primary outline-hidden"
+              placeholder="••••••••" type="password" (focus)="setFocus('confirmPassword')" (blur)="clearFocus()" />
+          </div>
+
+          <div class="pt-2">
+            <button type="submit"
+              class="w-full h-[48px] bg-primary hover:bg-blue-hover text-white font-body-sm font-semibold rounded-lg transition-soft active:scale-[0.98] flex items-center justify-center gap-2 cursor-pointer">
+              Create Account
+              <i class="ph ph-arrow-right text-[18px]"></i>
+            </button>
+          </div>
+        </form>
+
+        <div class="mt-8 text-center">
+          <p class="font-body-sm text-body-sm text-text-secondary">
+            Already have an account?
+            <a class="text-primary font-semibold hover:underline underline-offset-4 ml-1 transition-soft" href="#">Sign
+              In</a>
+          </p>
+        </div>
+      </div>
+
+      <div class="mt-12 flex justify-center items-center gap-8 opacity-40 grayscale">
+        <span class="font-label-tiny text-label-tiny">TRUSTED BY TEAMS AT</span>
+        <div class="flex gap-4 text-xl">
+          <i class="ph ph-brackets-angle"></i>
+          <i class="ph ph-database"></i>
+          <i class="ph ph-cloud-check"></i>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="hidden md:flex w-[55%] bg-surface-container relative overflow-hidden items-center justify-center p-12"
+    (mousemove)="onMouseMove($event)" (mouseleave)="onMouseLeave()">
+    <div class="absolute top-0 right-0 w-[600px] h-[600px] bg-primary/5 rounded-full blur-3xl -mr-48 -mt-48"></div>
+    <div class="absolute bottom-0 left-0 w-[400px] h-[400px] bg-warning/5 rounded-full blur-3xl -ml-24 -mb-24"></div>
+
+    <div class="relative w-full max-w-[640px] grid grid-cols-12 gap-6">
+      <div
+        class="col-span-5 bg-white p-6 rounded-xl border border-border-default large-card-shadow hover-card transition-soft"
+        [style.transform]="getCardTransform(1)">
+        <div class="flex justify-between items-start mb-6">
+          <span class="font-label-tiny text-label-tiny text-text-muted uppercase tracking-tighter">Resume Score</span>
+          <i class="ph-fill ph-check-circle text-success text-lg"></i>
+        </div>
+        <div class="flex flex-col items-center py-2">
+          <div class="relative flex items-center justify-center">
+            <svg class="w-24 h-24 transform -rotate-90">
+              <circle class="text-surface-container" cx="48" cy="48" fill="transparent" r="40" stroke="currentColor"
+                stroke-width="8"></circle>
+              <circle class="text-primary transition-all duration-1000" cx="48" cy="48" fill="transparent" r="40"
+                stroke="currentColor" stroke-dasharray="251.2" stroke-dashoffset="32.6" stroke-width="8"></circle>
+            </svg>
+            <span class="absolute font-headline-md text-headline-md text-text-primary">87%</span>
+          </div>
+          <p class="mt-4 font-label-tiny text-label-tiny text-success text-center">Top 5% of candidates</p>
+        </div>
+      </div>
+
+      <div
+        class="col-span-7 bg-white p-6 rounded-xl border border-border-default large-card-shadow hover-card transition-soft"
+        [style.transform]="getCardTransform(2)">
+        <div class="mb-4">
+          <span class="font-label-tiny text-label-tiny text-text-muted uppercase tracking-tighter">Perfect Match</span>
+        </div>
+        <div class="flex items-center gap-4 mb-6">
+          <div class="w-12 h-12 bg-surface-container rounded-lg flex items-center justify-center overflow-hidden">
+            <img class="w-full h-full object-cover" alt="Minimalist corporate logo profile"
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuCx2W-ZiVWjJNJbYa7EzFWLhvjNa5gUuA_KzFk9C5c41ojqD80NHSKXwoLd32Oq5zZv2Z-bvfDxeiigVbovm52KbdkJBfw9CWKUKobsu7CkLOG9eqfgojvKQJnGLQusMnHTFBUXcmlR0Az9DZmP-UuAiR-uO9yMU3F0nEn1VNe3u-8G0n2wcPBRUEhjv-se2DTeijhEuwNdI-WISksKFOB5olDRgGzLkNTHqWVWWhLBqFLVMgXrqkTcO5tbWjTUY7m82pkyt9yyLwdu" />
+          </div>
+          <div>
+            <h4 class="font-body-sm font-bold text-text-primary">Product Designer</h4>
+            <p class="font-label-tiny text-label-tiny text-text-secondary">TechFlow Inc.</p>
+          </div>
+        </div>
+        <div class="flex items-baseline gap-2">
+          <span class="font-headline-xl text-[40px] text-primary">91%</span>
+          <span class="font-label-tiny text-label-tiny text-text-muted">Similarity Match</span>
+        </div>
+        <div class="mt-4 w-full h-1.5 bg-surface-container rounded-full overflow-hidden">
+          <div class="h-full bg-primary w-[91%] rounded-full"></div>
+        </div>
+      </div>
+
+      <div
+        class="col-span-6 bg-white p-6 rounded-xl border border-border-default large-card-shadow hover-card transition-soft"
+        [style.transform]="getCardTransform(3)">
+        <div class="mb-4 flex justify-between items-center">
+          <span class="font-label-tiny text-label-tiny text-text-muted uppercase tracking-tighter">Skills
+            Analysis</span>
+          <i class="ph ph-chart-bar text-text-muted"></i>
+        </div>
+        <ul class="space-y-3">
+          <li class="flex items-center justify-between">
+            <span class="font-body-sm text-text-primary">Figma</span>
+            <span
+              class="px-2 py-0.5 bg-blue-light text-primary font-label-tiny text-label-tiny rounded-full">Expert</span>
+          </li>
+          <li class="flex items-center justify-between">
+            <span class="font-body-sm text-text-primary">React</span>
+            <span
+              class="px-2 py-0.5 bg-surface-container text-text-secondary font-label-tiny text-label-tiny rounded-full">Growing</span>
+          </li>
+          <li class="flex items-center justify-between">
+            <span class="font-body-sm text-text-primary">User Research</span>
+            <span class="px-2 py-0.5 bg-blue-light text-primary font-label-tiny text-label-tiny rounded-full">Pro</span>
+          </li>
+        </ul>
+      </div>
+
+      <div
+        class="col-span-6 bg-white p-6 rounded-xl border border-border-default large-card-shadow hover-card transition-soft"
+        [style.transform]="getCardTransform(4)">
+        <div class="mb-4">
+          <span class="font-label-tiny text-label-tiny text-text-muted uppercase tracking-tighter">Recommended for
+            You</span>
+        </div>
+        <div class="space-y-4">
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded bg-surface-container-highest flex-shrink-0 flex items-center justify-center">
+              <i class="ph-fill ph-lightning text-[14px] text-text-primary"></i>
+            </div>
+            <div class="truncate">
+              <p class="font-label-tiny text-label-tiny font-bold text-text-primary truncate">Senior UX Architect</p>
+              <p class="font-label-tiny text-label-tiny text-text-muted">Aether Systems</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded bg-surface-container-highest flex-shrink-0 flex items-center justify-center">
+              <i class="ph-fill ph-hexagon text-[14px] text-text-primary"></i>
+            </div>
+            <div class="truncate">
+              <p class="font-label-tiny text-label-tiny font-bold text-text-primary truncate">Interface Engineer</p>
+              <p class="font-label-tiny text-label-tiny text-text-muted">Lumina Labs</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="absolute -bottom-12 -right-12 w-[120%] h-[120%] z-[-1] opacity-40">
+        <div class="w-full h-full solarized-gradient rounded-3xl border border-border-default transform rotate-2"></div>
+      </div>
+    </div>
+
+    <div class="absolute bottom-8 left-0 w-full text-center">
+      <p class="font-body-sm text-body-sm text-text-muted px-section-padding-desktop">
+        Precision analytics to guide your professional transition.
+      </p>
+    </div>
+  </section>
+</main>
