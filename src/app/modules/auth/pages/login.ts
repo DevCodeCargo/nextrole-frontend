@@ -4,6 +4,7 @@ import { AuthService, LoginData, LoginRequest } from '../../../platform/services
 import { CommonModule } from '@angular/common';
 import { finalize, Observer } from 'rxjs';
 import { ApiResponse } from '../../../platform/models/api/api.model';
+import { StorageHelper } from '../../../platform/utils/storage-helper';
 
 @Component({
   selector: 'nr-login',
@@ -24,9 +25,16 @@ export class Login {
       username: "",
       password: ""
     }
+
+    let email = StorageHelper.getSession('email');
+
+    if (email) {
+      this.model.username = email;
+    }
+
   }
 
-  onSubmit(): void {
+  onLoginSubmit(): void {
     this.errorMessage = '';
     this.isLoading.set(true);
 
@@ -65,11 +73,6 @@ export class Login {
 
   clearFocus() {
     this.activeFocus.set(null);
-  }
-
-  onLoginSubmit(event: Event) {
-    event.preventDefault();
-    // Insert authentication backend payload stream here
   }
 
   onMouseMove(e: MouseEvent) {

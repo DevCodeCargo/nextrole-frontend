@@ -57,7 +57,7 @@
         <p class="font-body-sm text-body-sm text-text-secondary mb-6">Create your account to start matching.</p>
         <form class="space-y-4" (ngSubmit)="onSignUpSubmit($event)">
           <div>
-            <input
+            <input [(ngModel)]="emailId" name="emailId"
               class="w-full h-12 px-4 rounded-[10px] border border-border-default focus:ring-2 focus:ring-primary focus:border-transparent transition-standard outline-none bg-surface-container-lowest placeholder:text-text-muted"
               placeholder="Email Address" type="email" />
           </div>

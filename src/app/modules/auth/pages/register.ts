@@ -1,9 +1,9 @@
 import { Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { AuthService, LoginData, LoginRequest } from '../../../platform/services/auth.service';
+import { AuthService, RegisterRequest } from '../../../platform/services/auth.service';
 import { CommonModule } from '@angular/common';
-import { finalize, Observer } from 'rxjs';
 import { ApiResponse } from '../../../platform/models/api/api.model';
+import { StorageHelper } from '../../../platform/utils/storage-helper';
 
 @Component({
   selector: 'nr-register',
@@ -11,6 +11,30 @@ import { ApiResponse } from '../../../platform/models/api/api.model';
   templateUrl: './register.html'
 })
 export class Register {
+
+  model!: RegisterRequest & {
+    confirmPassword: string
+  };
+
+  isLoading: boolean = false;
+  showConfirmPassword = false;
+
+  private authService = inject(AuthService);
+
+  constructor() {
+    this.model = {
+      confirmPassword: "",
+      password: "",
+      email: "",
+      fullName: ""
+    }
+
+    let email = StorageHelper.getSession('email');
+
+    if (email) {
+      this.model.email = email;
+    }
+  }
 
   // Input focus trackers
   activeFocus = signal<string | null>(null);
@@ -29,8 +53,7 @@ export class Register {
   }
 
   onRegisterSubmit(event: Event) {
-    event.preventDefault();
-    // Insert signup authentication logic here
+    console.log(this.model);
   }
 
   // Modern Parallax Event Processing
@@ -54,6 +77,41 @@ export class Register {
     const xMove = this.xAxis() * depth;
     const yMove = this.yAxis() * depth;
     return `translate(${xMove}px, ${yMove}px)`;
+  }
+
+  get passwordChecks() {
+    const password = this.model.password ?? '';
+
+    return {
+      minLength: password.length >= 8,
+      upperCase: /[A-Z]/.test(password),
+      lowerCase: /[a-z]/.test(password),
+      number: /\d/.test(password),
+      special: /[^A-Za-z0-9]/.test(password)
+    };
+  }
+
+  get passwordsMatch(): boolean {
+    return !!this.model.confirmPassword &&
+      this.model.password === this.model.confirmPassword;
+  }
+
+  get passwordValid(): boolean {
+    const checks = this.passwordChecks;
+
+    return checks.minLength &&
+      checks.upperCase &&
+      checks.lowerCase &&
+      checks.number &&
+      checks.special;
+  }
+
+  get canRegister(): boolean {
+
+    return !!this.model.fullName?.trim()
+      && this.passwordValid
+      && this.passwordsMatch;
+
   }
 
 }

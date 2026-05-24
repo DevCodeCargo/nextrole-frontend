@@ -42,13 +42,13 @@
           <p class="font-body-sm text-body-sm text-text-secondary">Let's get you closer to your next opportunity.</p>
         </div>
 
-        <form class="space-y-5" (ngSubmit)="onRegisterSubmit($event)">
+        <form class="space-y-5">
           <div class="space-y-1.5">
             <label class="font-label-tiny text-label-tiny text-text-muted uppercase tracking-wider">Email
               Address</label>
             <input
-              class="w-full h-[48px] px-4 bg-surface-variant/50 border border-border-default rounded-lg font-body-sm text-text-muted cursor-not-allowed outline-hidden"
-              readonly type="email" value="alex.weaver@example.com" />
+              class="w-full h-[48px] px-4 bg-white border border-border-default rounded-lg font-body-sm text-text-primary transition-soft focus:ring-2 focus:ring-primary/20 focus:border-primary outline-hidden"
+              type="email" [(ngModel)]="model.email" name="email" />
           </div>
 
           <div class="space-y-1.5">
@@ -56,7 +56,8 @@
               [ngClass]="activeFocus() === 'name' ? 'text-primary' : 'text-text-muted'">Full Name</label>
             <input
               class="w-full h-[48px] px-4 bg-white border border-border-default rounded-lg font-body-sm text-text-primary transition-soft focus:ring-2 focus:ring-primary/20 focus:border-primary outline-hidden"
-              placeholder="Alex Weaver" type="text" (focus)="setFocus('name')" (blur)="clearFocus()" />
+              placeholder="Alex Weaver" [(ngModel)]="model.fullName" name="fullName" type="text"
+              (focus)="setFocus('name')" (blur)="clearFocus()" />
           </div>
 
           <div class="space-y-1.5">
@@ -64,23 +65,101 @@
               [ngClass]="activeFocus() === 'password' ? 'text-primary' : 'text-text-muted'">Password</label>
             <input
               class="w-full h-[48px] px-4 bg-white border border-border-default rounded-lg font-body-sm text-text-primary transition-soft focus:ring-2 focus:ring-primary/20 focus:border-primary outline-hidden"
-              placeholder="••••••••" type="password" (focus)="setFocus('password')" (blur)="clearFocus()" />
+              placeholder="••••••••" type="password" [(ngModel)]="model.password" name="password"
+              (focus)="setFocus('password')" (blur)="clearFocus()" />
           </div>
+
+          @if(model.password){
+          <div class="mt-2 space-y-1 text-xs">
+
+            <div [class.text-success]="passwordChecks.minLength" [class.text-text-muted]="!passwordChecks.minLength">
+
+              ✓ Minimum 8 characters
+
+            </div>
+
+            <div [class.text-success]="passwordChecks.upperCase" [class.text-text-muted]="!passwordChecks.upperCase">
+
+              ✓ One uppercase letter
+
+            </div>
+
+            <div [class.text-success]="passwordChecks.lowerCase" [class.text-text-muted]="!passwordChecks.lowerCase">
+
+              ✓ One lowercase letter
+
+            </div>
+
+            <div [class.text-success]="passwordChecks.number" [class.text-text-muted]="!passwordChecks.number">
+
+              ✓ One number
+
+            </div>
+
+            <div [class.text-success]="passwordChecks.special" [class.text-text-muted]="!passwordChecks.special">
+
+              ✓ One special character
+
+            </div>
+
+          </div>
+          }
 
           <div class="space-y-1.5">
             <label class="font-label-tiny text-label-tiny uppercase tracking-wider transition-colors duration-200"
-              [ngClass]="activeFocus() === 'confirmPassword' ? 'text-primary' : 'text-text-muted'">Confirm
-              Password</label>
-            <input
-              class="w-full h-[48px] px-4 bg-white border border-border-default rounded-lg font-body-sm text-text-primary transition-soft focus:ring-2 focus:ring-primary/20 focus:border-primary outline-hidden"
-              placeholder="••••••••" type="password" (focus)="setFocus('confirmPassword')" (blur)="clearFocus()" />
+              [ngClass]="activeFocus() === 'confirmPassword' ? 'text-primary' : 'text-text-muted'">
+
+              Confirm Password
+
+            </label>
+
+            <div class="relative">
+
+              <input
+                class="w-full h-[48px] px-4 pr-12 bg-white border border-border-default rounded-lg font-body-sm text-text-primary transition-soft focus:ring-2 focus:ring-primary/20 focus:border-primary outline-hidden"
+                placeholder="••••••••" [type]="showConfirmPassword ? 'text' : 'password'"
+                [(ngModel)]="model.confirmPassword" name="confirmPassword" (focus)="setFocus('confirmPassword')"
+                (blur)="clearFocus()" />
+
+              <button type="button" (click)="showConfirmPassword = !showConfirmPassword"
+                class="absolute right-3 top-1/2 -translate-y-1/2 text-text-muted hover:text-primary transition-colors cursor-pointer">
+
+                <i [class]="showConfirmPassword ? 'ph ph-eye-slash text-lg' : 'ph ph-eye text-lg'">
+                </i>
+
+              </button>
+
+            </div>
           </div>
 
+          @if(model.confirmPassword){
+
+          <div class="mt-2 text-xs" [class.text-success]="passwordsMatch" [class.text-danger]="!passwordsMatch">
+
+            {{ passwordsMatch
+            ? '✓ Passwords match'
+            : '✗ Passwords do not match' }}
+
+          </div>
+
+          }
+
           <div class="pt-2">
-            <button type="submit"
-              class="w-full h-[48px] bg-primary hover:bg-blue-hover text-white font-body-sm font-semibold rounded-lg transition-soft active:scale-[0.98] flex items-center justify-center gap-2 cursor-pointer">
-              Create Account
+            <button type="submit" [disabled]="!canRegister"
+              class="w-full h-[48px] bg-primary hover:bg-blue-hover disabled:bg-border-default disabled:text-text-muted disabled:cursor-not-allowed text-white font-body-sm font-semibold rounded-lg transition-soft active:scale-[0.98] flex items-center justify-center gap-2 cursor-pointer">
+
+              @if(isLoading){
+
+              <i class="ph ph-spinner-gap animate-spin text-[18px]"></i>
+              Creating Account...
+
+              } @else {
+
+              <span>Create Account</span>
               <i class="ph ph-arrow-right text-[18px]"></i>
+
+              }
+
             </button>
           </div>
         </form>

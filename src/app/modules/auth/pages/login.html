@@ -43,13 +43,14 @@
           </p>
         </div>
 
-        <form class="space-y-5" (ngSubmit)="onLoginSubmit($event)">
+        <form class="space-y-5" (ngSubmit)="onLoginSubmit()">
           <div class="space-y-1.5">
             <label class="font-label-tiny text-label-tiny uppercase tracking-wider transition-colors duration-200"
               [ngClass]="activeFocus() === 'email' ? 'text-primary' : 'text-text-muted'">Email Address</label>
             <input
               class="w-full h-[48px] px-4 bg-white border border-border-default rounded-lg font-body-sm text-text-primary transition-soft focus:ring-2 focus:ring-primary/20 focus:border-primary outline-hidden"
-              placeholder="alex.weaver@example.com" type="email" (focus)="setFocus('email')" (blur)="clearFocus()" />
+              placeholder="alex.weaver@example.com" type="email" name="emailId" [(ngModel)]="model.username"
+              (focus)="setFocus('email')" (blur)="clearFocus()" />
           </div>
 
           <div class="space-y-1.5">
@@ -61,7 +62,8 @@
             </div>
             <input
               class="w-full h-[48px] px-4 bg-white border border-border-default rounded-lg font-body-sm text-text-primary transition-soft focus:ring-2 focus:ring-primary/20 focus:border-primary outline-hidden"
-              placeholder="••••••••" type="password" (focus)="setFocus('password')" (blur)="clearFocus()" />
+              placeholder="••••••••" type="password" name="password" [(ngModel)]="model.password"
+              (focus)="setFocus('password')" (blur)="clearFocus()" />
           </div>
 
           <div class="pt-2">
@@ -151,13 +153,16 @@
           <div class="flex -space-x-2 overflow-hidden">
             <div
               class="w-8 h-8 rounded-full bg-surface-container-highest border-2 border-white flex items-center justify-center text-xs">
-              <i class="ph ph-git-branch"></i></div>
+              <i class="ph ph-git-branch"></i>
+            </div>
             <div
               class="w-8 h-8 rounded-full bg-surface-container-highest border-2 border-white flex items-center justify-center text-xs">
-              <i class="ph ph-linkedin-logo"></i></div>
+              <i class="ph ph-linkedin-logo"></i>
+            </div>
             <div
               class="w-8 h-8 rounded-full bg-surface-container-highest border-2 border-white flex items-center justify-center text-xs">
-              <i class="ph ph-google-logo"></i></div>
+              <i class="ph ph-google-logo"></i>
+            </div>
           </div>
           <span class="font-label-tiny text-label-tiny text-text-secondary">Profiles fully synchronized</span>
         </div>

@@ -6,28 +6,41 @@ import { environment } from '../../../environments/environment';
 import { ApiResponse } from '../models/api/api.model';
 
 export interface LoginRequest {
-  tenantCode?: string;
   username: string;
   password: string;
 }
 
 export interface LoginData {
+  [x: string]: any;
   accessToken: string;
-  tenant: string;
   user: AuthenticatedUser;
 }
 
 export interface AuthenticatedUser {
   user_id: number;
   username: string;
-  tenant: string;
-  tenantName?: string;
 }
 
 export interface AuthSession {
   accessToken: string;
-  tenant: string;
   user: AuthenticatedUser;
+}
+
+export interface EmailCheckRequest {
+  email: string;
+}
+
+export interface EmailCheckResponse {
+  exists: boolean;
+}
+
+export interface RegisterRequest {
+  email: string;
+
+  password: string;
+
+  fullName: string;
+
 }
 
 @Injectable({
@@ -52,7 +65,6 @@ export class AuthService {
   saveSession(data: LoginData): void {
     const session: AuthSession = {
       accessToken: data.accessToken,
-      tenant: data.tenant,
       user: data.user,
     };
 
@@ -84,5 +96,13 @@ export class AuthService {
 
   clearSession(): void {
     localStorage.removeItem(this.sessionKey);
+  }
+
+  checkEmail(payload: EmailCheckRequest): Observable<ApiResponse<EmailCheckResponse>> {
+    return this.http.post<ApiResponse<EmailCheckResponse>>(`${this.apiUrl}/auth/checkEmail`, payload).pipe(
+      tap((response) => {
+
+      }),
+    );
   }
 }
