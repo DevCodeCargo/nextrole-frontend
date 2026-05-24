@@ -1,0 +1,83 @@
+<div class="min-h-screen flex items-center justify-center bg-bg-dark px-6">
+
+  <div class="w-full max-w-md">
+
+    <div class="bg-surface-3 rounded-3xl shadow-xl border border-border-muted p-10">
+
+      <!-- Header -->
+      <div class="mb-8">
+        <h1 class="text-3xl font-semibold tracking-tight text-text">
+          Welcome back
+        </h1>
+        <p class="mt-2 text-sm text-muted">
+          Please enter your details
+        </p>
+      </div>
+
+      <form (ngSubmit)="onSubmit()" class="space-y-6">
+
+        <!-- Username -->
+        <div>
+          <label class="block text-sm font-medium mb-2 text-text">
+            Username
+          </label>
+          <input name="username" [(ngModel)]="model.username" type="text" required class="w-full h-11 px-4 rounded-xl
+                   bg-surface-2
+                   border border-transparent
+                   focus:border-primary
+                   focus:ring-2 focus:ring-focus-ring
+                   outline-none
+                   transition" />
+        </div>
+
+        <!-- Password -->
+        <div>
+          <label class="block text-sm font-medium mb-2 text-text">
+            Password
+          </label>
+          <input name="password" [(ngModel)]="model.password" type="password" required class="w-full h-11 px-4 rounded-xl
+                   bg-surface-2
+                   border border-transparent
+                   focus:border-primary
+                   focus:ring-2 focus:ring-focus-ring
+                   outline-none
+                   transition" />
+        </div>
+
+        <!-- Error -->
+        @if (errorMessage) {
+        <div class="text-sm px-4 py-3 rounded-xl
+                    bg-danger/10
+                    text-danger">
+          {{ errorMessage }}
+        </div>
+        }
+
+        <!-- Button -->
+        <button type="submit" [disabled]="isLoading()" class="w-full h-11 rounded-xl
+                 bg-primary
+                 text-light
+                 font-medium
+                 hover:bg-secondary
+                 transition
+                 disabled:opacity-60
+                 disabled:cursor-not-allowed">
+
+          {{ isLoading() ? 'Logging in...' : 'Login' }}
+        </button>
+
+        <!-- Forgot -->
+        <div class="text-sm text-center text-muted">
+          Forgot password?
+          <a href="#" class="text-primary font-medium hover:underline">
+            Reset now
+          </a>
+        </div>
+
+      </form>
+
+    </div>
+
+  </div>
+
+</div>

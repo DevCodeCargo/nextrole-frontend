@@ -10,10 +10,13 @@
     "nextrole-frontend": {
       "projectType": "application",
       "schematics": {
+        "flat": true,
         "@schematics/angular:class": {
           "skipTests": true
         },
         "@schematics/angular:component": {
+          "style": "none",
+          "prefix": "nr",
           "skipTests": true
         },
         "@schematics/angular:directive": {
