@@ -1,0 +1,189 @@
+<nav class="bg-background/90 backdrop-blur-md sticky top-0 z-50 border-b border-border-default h-20 shadow-sm">
+  <div
+    class="flex justify-between items-center w-full px-section-padding-mobile md:px-section-padding-desktop max-w-max-width mx-auto h-full">
+    <div class="flex items-center gap-8">
+      <a class="font-headline-md text-headline-md font-bold tracking-tight text-primary" href="/">NextRole</a>
+      <div class="hidden md:flex gap-6 items-center">
+        <a class="font-body-sm text-body-sm text-text-secondary hover:text-primary transition-standard"
+          href="#">Features</a>
+        <a class="font-body-sm text-body-sm text-text-secondary hover:text-primary transition-standard" href="#">How it
+          Works</a>
+        <a class="font-body-sm text-body-sm text-text-secondary hover:text-primary transition-standard"
+          href="#">Pricing</a>
+        <a class="font-body-sm text-body-sm text-text-secondary hover:text-primary transition-standard"
+          href="#">Resources</a>
+      </div>
+    </div>
+    <div class="flex items-center gap-4">
+      <button
+        class="font-body-sm text-body-sm text-text-secondary px-4 py-2 hover:bg-surface-container rounded-lg transition-standard">Log
+        In</button>
+      <button
+        class="font-body-sm text-body-sm bg-primary text-on-primary px-6 py-2.5 rounded-[10px] active:scale-95 transition-standard">Get
+        Started</button>
+    </div>
+  </div>
+</nav>
+
+<section
+  class="max-w-max-width mx-auto px-section-padding-mobile md:px-section-padding-desktop py-section-padding-tablet md:py-section-padding-desktop">
+  <div class="flex flex-col md:flex-row gap-grid-gap items-center">
+    <div class="md:w-3/5 space-y-6">
+      <h1
+        class="font-headline-xl-mobile md:font-headline-xl text-headline-xl-mobile md:text-headline-xl text-text-primary max-w-2xl">
+        Stop Applying Blindly. <br class="hidden md:block" /> Let AI Match You to Better Jobs.
+      </h1>
+      <p class="font-body-lg text-body-lg text-text-secondary max-w-xl">
+        Upload your resume, analyze jobs, discover skill gaps, and focus on opportunities that truly fit. Experience the
+        warmth of high-focus career tools.
+      </p>
+      <div class="flex items-center gap-4 pt-4">
+        <div class="flex -space-x-3">
+          <img class="w-10 h-10 rounded-full border-2 border-background" alt="Professional professional avatar 1"
+            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDgkOSTX5znHa3POjPeCRbL5lyCCiCaWawlUHAxRLBTzY9B40nuZFgStQrCbPecuWiZtsNBcK73zrl7ASuwM-c6UcaFl73RK1vbXy9Cpd14nD-GuM_xyjF_axakopPJ_YUvwzjYvK7YBTz7LTzr5UY0JUUXY5JBIcuhTPSOqH52an7GSaJ8YYnZy5SVuV11EE1lOsORIMXKKWcobKPv2b7z-hLQLLP4sRWE0VsRSnzvSMID09-qcYuahG4z9QkEMcm6UJmaJgAo5Tj8" />
+          <img class="w-10 h-10 rounded-full border-2 border-background" alt="Professional professional avatar 2"
+            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDdTxhVtgKE9BlIPY8pggb2jULhgeWEAlVrur9W3qCZx1tGpQcR4MxqzelCKPCiV-H7qKTFNpCYNhqgE3xIBATG8TTP8Yz7DZtJpeJp8T_tQ8rEFIrsq9lHTErqXYmtNtZRkOnW0I61Xivje9dg3z4YZePEnxNP1AFHHv05VrBZVI_s8mId4VN1HLaQEMimcF-CvHjpPWIg2ktlt_GfeHhnsi-arfi1TBszEORhGiS8Oz4Y3Tsvw58dPrhrP1zUy3PqhQ9qCOA4ECSr" />
+          <img class="w-10 h-10 rounded-full border-2 border-background" alt="Professional professional avatar 3"
+            src="https://lh3.googleusercontent.com/aida-public/AB6AXuBNsx8vW_vTrvKeYUF7cyya_nyLq2IKRK_0mg8edoL7VmId1n4Pdr1bYfF16Yt4OqXij3DsabQctyfH4IYIm9YDAKvuQNHjR3meqL3vlzQ5SvuBj5aqYCAsMFatC9AsdoLdv05j_bXrl0d74aE7rBuECEtavohOPyGlBxWZi1pavbtCcej3dkyqPOqok9sXvSZzSEt1VhO42zskGkssA7c_Ug7DL2wYnIwmi8_t6QeF0Rug-lHrzud_ikOXeIxVhynmRZuzv-TDdrw3" />
+        </div>
+        <span class="font-label-tiny text-label-tiny text-text-muted uppercase tracking-wider">Join 5,000+
+          professionals</span>
+      </div>
+    </div>
+
+    <div class="md:w-2/5 w-full">
+      <div class="bg-surface-container-low p-8 rounded-[16px] card-shadow border border-border-default">
+        <h3 class="font-headline-md text-headline-md text-text-primary mb-2">Get Started</h3>
+        <p class="font-body-sm text-body-sm text-text-secondary mb-6">Create your account to start matching.</p>
+        <form class="space-y-4" (ngSubmit)="onSignUpSubmit($event)">
+          <div>
+            <input [(ngModel)]="emailId" name="emailId"
+              class="w-full h-12 px-4 rounded-[10px] border border-border-default focus:ring-2 focus:ring-primary focus:border-transparent transition-standard outline-none bg-surface-container-lowest placeholder:text-text-muted"
+              placeholder="Email Address" type="email" />
+          </div>
+          <button type="submit"
+            class="w-full h-12 bg-primary text-on-primary font-body-sm text-body-sm rounded-[10px] flex items-center justify-center gap-2 hover:bg-blue-hover transition-standard active:scale-[0.98]">
+            Continue <i class="ph ph-arrow-right text-[18px]"></i>
+          </button>
+        </form>
+        <div class="mt-6 p-4 bg-blue-light/30 rounded-lg border border-blue-light">
+          <p class="font-label-tiny text-label-tiny text-primary-container text-center italic">
+            "The focus I found using NextRole was exactly what my job search was missing."
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="bg-surface-container py-section-padding-desktop">
+  <div class="max-w-max-width mx-auto px-section-padding-mobile md:px-section-padding-desktop">
+    <div class="text-center mb-16">
+      <h2 class="font-headline-lg text-headline-lg text-text-primary mb-4">How It Works</h2>
+      <p class="font-body-lg text-body-lg text-text-secondary max-w-2xl mx-auto">Precision engineering meets human
+        career growth.</p>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-grid-gap">
+      <div class="flex flex-col items-center text-center group">
+        <div
+          class="w-16 h-16 bg-surface-container-highest rounded-full flex items-center justify-center mb-6 group-hover:bg-primary/10 transition-standard border border-border-default">
+          <i class="ph ph-file-arrow-up text-[32px] text-primary"></i>
+        </div>
+        <h3 class="font-headline-md text-headline-md text-text-primary mb-3">Upload Your Resume</h3>
+        <p class="font-body-sm text-body-sm text-text-secondary px-4">Our AI analyzes your skills, experience, and
+          unique professional trajectory with medical-grade precision.</p>
+      </div>
+      <div class="flex flex-col items-center text-center group">
+        <div
+          class="w-16 h-16 bg-surface-container-highest rounded-full flex items-center justify-center mb-6 group-hover:bg-primary/10 transition-standard border border-border-default">
+          <i class="ph ph-chart-line text-[32px] text-primary"></i>
+        </div>
+        <h3 class="font-headline-md text-headline-md text-text-primary mb-3">Track Your Progress</h3>
+        <p class="font-body-sm text-body-sm text-text-secondary px-4">Monitor every application in real-time within a
+          clean, distraction-free environment designed for focus.</p>
+      </div>
+      <div class="flex flex-col items-center text-center group">
+        <div
+          class="w-16 h-16 bg-surface-container-highest rounded-full flex items-center justify-center mb-6 group-hover:bg-primary/10 transition-standard border border-border-default">
+          <i class="ph-fill ph-check-circle text-[32px] text-primary"></i>
+        </div>
+        <h3 class="font-headline-md text-headline-md text-text-primary mb-3">Get Matched</h3>
+        <p class="font-body-sm text-body-sm text-text-secondary px-4">Receive curated job recommendations that fit your
+          profile perfectly. No noise, just relevant opportunities.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="py-section-padding-desktop">
+  <div class="max-w-max-width mx-auto px-section-padding-mobile md:px-section-padding-desktop">
+    <div class="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
+      <div>
+        <span class="font-label-tiny text-label-tiny text-primary uppercase tracking-widest mb-2 block">Enterprise
+          Power</span>
+        <h2 class="font-headline-lg text-headline-lg text-text-primary">Engineered for your next big move.</h2>
+      </div>
+      <p class="font-body-sm text-body-sm text-text-muted max-w-sm">
+        Built by engineers and recruiters to eliminate the "black box" of modern job applications.
+      </p>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div
+        class="bg-surface-container-low p-6 rounded-[16px] border border-border-default card-shadow-hover transition-standard">
+        <div class="w-10 h-10 bg-blue-light rounded-lg flex items-center justify-center mb-4">
+          <i class="ph ph-brain text-primary text-[20px]"></i>
+        </div>
+        <h4 class="font-headline-md text-[18px] text-text-primary mb-2">AI Resume Analysis</h4>
+        <p class="font-body-sm text-body-sm text-text-secondary">Deep-dive into your resume's strengths and weaknesses
+          using LLM-powered context awareness.</p>
+      </div>
+      <div
+        class="bg-surface-container-low p-6 rounded-[16px] border border-border-default card-shadow-hover transition-standard">
+        <div class="w-10 h-10 bg-blue-light rounded-lg flex items-center justify-center mb-4">
+          <i class="ph ph-path text-primary text-[20px]"></i>
+        </div>
+        <h4 class="font-headline-md text-[18px] text-text-primary mb-2">Skill Gap Detection</h4>
+        <p class="font-body-sm text-body-sm text-text-secondary">Know exactly what skills to add to land your dream role
+          based on live market requirements.</p>
+      </div>
+      <div
+        class="bg-surface-container-low p-6 rounded-[16px] border border-border-default card-shadow-hover transition-standard">
+        <div class="w-10 h-10 bg-blue-light rounded-lg flex items-center justify-center mb-4">
+          <i class="ph ph-sparkles text-primary text-[20px]"></i>
+        </div>
+        <h4 class="font-headline-md text-[18px] text-text-primary mb-2">Automated Matching</h4>
+        <p class="font-body-sm text-body-sm text-text-secondary">No more endless scrolling; our proprietary algorithms
+          bring high-intent jobs directly to you.</p>
+      </div>
+      <div
+        class="bg-surface-container-low p-6 rounded-[16px] border border-border-default card-shadow-hover transition-standard">
+        <div class="w-10 h-10 bg-blue-light rounded-lg flex items-center justify-center mb-4">
+          <i class="ph ph-kanban text-primary text-[20px]"></i>
+        </div>
+        <h4 class="font-headline-md text-[18px] text-text-primary mb-2">Application Tracking</h4>
+        <p class="font-body-sm text-body-sm text-text-secondary">A clean, central dashboard for every application,
+          interview stage, and feedback loop.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="bg-surface-container mt-24">
+  <div
+    class="flex flex-col md:flex-row justify-between items-center py-section-padding-tablet px-section-padding-mobile md:px-section-padding-desktop max-w-max-width mx-auto gap-grid-gap">
+    <div class="flex flex-col items-center md:items-start gap-4">
+      <a class="font-headline-md text-headline-md font-bold text-primary" href="/">NextRole</a>
+      <p class="font-label-tiny text-label-tiny text-text-muted">© 2026 NextRole. Built for Quiet Productivity.</p>
+    </div>
+    <div class="flex flex-wrap justify-center gap-8">
+      <a class="font-body-sm text-body-sm text-text-muted hover:text-primary transition-colors duration-200"
+        href="#">Privacy Policy</a>
+      <a class="font-body-sm text-body-sm text-text-muted hover:text-primary transition-colors duration-200"
+        href="#">Terms of Service</a>
+      <a class="font-body-sm text-body-sm text-text-muted hover:text-primary transition-colors duration-200"
+        href="#">Cookie Policy</a>
+      <a class="font-body-sm text-body-sm text-text-muted hover:text-primary transition-colors duration-200"
+        href="#">Contact Support</a>
+    </div>
+  </div>
+</footer>

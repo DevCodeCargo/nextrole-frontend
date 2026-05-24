@@ -1,0 +1,199 @@
+<style>
+  .large-card-shadow {
+    box-shadow: 0 4px 20px -2px rgba(47, 42, 36, 0.05), 0 2px 8px -1px rgba(47, 42, 36, 0.03);
+  }
+
+  .transition-soft {
+    transition: all 200ms ease-out;
+  }
+
+  .hover-card:hover {
+    box-shadow: 0 12px 30px -5px rgba(47, 42, 36, 0.08);
+  }
+
+  .solarized-gradient {
+    background: linear-gradient(135deg, #fcf9f2 0%, #f0eee7 100%);
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+</style>
+
+<main class="flex-grow flex flex-col md:flex-row max-w-max-width mx-auto w-full items-stretch">
+  <section class="w-full md:w-[45%] flex flex-col justify-center px-section-padding-mobile md:px-12 py-12">
+    <div class="max-w-[440px] mx-auto w-full">
+      <div
+        class="bg-surface-container-low p-8 md:p-10 rounded-xl large-card-shadow border border-border-default transition-soft">
+        <div class="mb-8 flex items-center gap-2">
+          <div class="w-8 h-8 bg-primary rounded-lg flex items-center justify-center text-white">
+            <i class="ph-fill ph-rocket-launch text-[20px]"></i>
+          </div>
+          <span class="font-headline-md text-headline-md font-bold text-primary">NextRole</span>
+        </div>
+
+        <div class="mb-8">
+          <h2 class="font-headline-md text-headline-md text-text-primary mb-2">Welcome Back</h2>
+          <p class="font-body-sm text-body-sm text-text-secondary">Sign in to monitor your active application pipelines.
+          </p>
+        </div>
+
+        <form class="space-y-5" (ngSubmit)="onLoginSubmit()">
+          <div class="space-y-1.5">
+            <label class="font-label-tiny text-label-tiny uppercase tracking-wider transition-colors duration-200"
+              [ngClass]="activeFocus() === 'email' ? 'text-primary' : 'text-text-muted'">Email Address</label>
+            <input
+              class="w-full h-[48px] px-4 bg-white border border-border-default rounded-lg font-body-sm text-text-primary transition-soft focus:ring-2 focus:ring-primary/20 focus:border-primary outline-hidden"
+              placeholder="alex.weaver@example.com" type="email" name="emailId" [(ngModel)]="model.username"
+              (focus)="setFocus('email')" (blur)="clearFocus()" />
+          </div>
+
+          <div class="space-y-1.5">
+            <div class="flex justify-between items-center">
+              <label class="font-label-tiny text-label-tiny uppercase tracking-wider transition-colors duration-200"
+                [ngClass]="activeFocus() === 'password' ? 'text-primary' : 'text-text-muted'">Password</label>
+              <a href="#" class="font-label-tiny text-label-tiny text-primary hover:underline underline-offset-2">Forgot
+                Password?</a>
+            </div>
+            <input
+              class="w-full h-[48px] px-4 bg-white border border-border-default rounded-lg font-body-sm text-text-primary transition-soft focus:ring-2 focus:ring-primary/20 focus:border-primary outline-hidden"
+              placeholder="••••••••" type="password" name="password" [(ngModel)]="model.password"
+              (focus)="setFocus('password')" (blur)="clearFocus()" />
+          </div>
+
+          <div class="pt-2">
+            <button type="submit"
+              class="w-full h-[48px] bg-primary hover:bg-blue-hover text-white font-body-sm font-semibold rounded-lg transition-soft active:scale-[0.98] flex items-center justify-center gap-2 cursor-pointer">
+              Sign In
+              <i class="ph ph-arrow-right text-[18px]"></i>
+            </button>
+          </div>
+        </form>
+
+        <div class="mt-8 text-center">
+          <p class="font-body-sm text-body-sm text-text-secondary">
+            Don't have an account yet?
+            <a class="text-primary font-semibold hover:underline underline-offset-4 ml-1 transition-soft"
+              href="#">Register</a>
+          </p>
+        </div>
+      </div>
+
+      <div class="mt-12 flex justify-center items-center gap-8 opacity-40 grayscale">
+        <span class="font-label-tiny text-label-tiny">TRUSTED BY TEAMS AT</span>
+        <div class="flex gap-4 text-xl">
+          <i class="ph ph-brackets-angle"></i>
+          <i class="ph ph-database"></i>
+          <i class="ph ph-cloud-check"></i>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="hidden md:flex w-[55%] bg-surface-container relative overflow-hidden items-center justify-center p-12"
+    (mousemove)="onMouseMove($event)" (mouseleave)="onMouseLeave()">
+    <div class="absolute top-0 right-0 w-[600px] h-[600px] bg-primary/5 rounded-full blur-3xl -mr-48 -mt-48"></div>
+    <div class="absolute bottom-0 left-0 w-[400px] h-[400px] bg-warning/5 rounded-full blur-3xl -ml-24 -mb-24"></div>
+
+    <div class="relative w-full max-w-[640px] grid grid-cols-12 gap-6">
+
+      <div
+        class="col-span-5 bg-white p-6 rounded-xl border border-border-default large-card-shadow hover-card transition-soft"
+        [style.transform]="getCardTransform(1)">
+        <div class="flex justify-between items-start mb-4">
+          <span class="font-label-tiny text-label-tiny text-text-muted uppercase tracking-tighter">System Scan</span>
+          <span class="flex h-2 w-2 relative">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-success opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2 w-2 bg-success"></span>
+          </span>
+        </div>
+        <div class="space-y-2 py-2">
+          <h3 class="font-headline-lg text-[32px] text-primary tracking-tight font-bold">2,480</h3>
+          <p class="font-label-tiny text-label-tiny text-text-secondary">New roles parsed globally in the last 12 hours.
+          </p>
+        </div>
+      </div>
+
+      <div
+        class="col-span-7 bg-white p-6 rounded-xl border border-border-default large-card-shadow hover-card transition-soft"
+        [style.transform]="getCardTransform(2)">
+        <div class="mb-4 flex justify-between items-center">
+          <span class="font-label-tiny text-label-tiny text-text-muted uppercase tracking-tighter">Next Action
+            Item</span>
+          <span
+            class="px-2 py-0.5 bg-blue-light text-primary font-label-tiny text-label-tiny rounded-md font-semibold">Tomorrow</span>
+        </div>
+        <div class="flex items-center gap-4 mb-4">
+          <div class="w-10 h-10 bg-surface-container rounded-lg flex items-center justify-center text-text-primary">
+            <i class="ph ph-calendar-blank text-xl"></i>
+          </div>
+          <div>
+            <h4 class="font-body-sm font-bold text-text-primary">Technical Sync</h4>
+            <p class="font-label-tiny text-label-tiny text-text-secondary">Linear Finance • 3:30 PM</p>
+          </div>
+        </div>
+        <div class="w-full h-[1px] bg-border-default my-3"></div>
+        <p class="font-label-tiny text-label-tiny text-text-muted italic">"Review full-stack system architecture
+          requirements before connecting."</p>
+      </div>
+
+      <div
+        class="col-span-6 bg-white p-6 rounded-xl border border-border-default large-card-shadow hover-card transition-soft"
+        [style.transform]="getCardTransform(3)">
+        <div class="mb-4 flex justify-between items-center">
+          <span class="font-label-tiny text-label-tiny text-text-muted uppercase tracking-tighter">Integrations</span>
+          <i class="ph ph-shield-check text-success text-lg"></i>
+        </div>
+        <div class="flex items-center gap-3">
+          <div class="flex -space-x-2 overflow-hidden">
+            <div
+              class="w-8 h-8 rounded-full bg-surface-container-highest border-2 border-white flex items-center justify-center text-xs">
+              <i class="ph ph-git-branch"></i>
+            </div>
+            <div
+              class="w-8 h-8 rounded-full bg-surface-container-highest border-2 border-white flex items-center justify-center text-xs">
+              <i class="ph ph-linkedin-logo"></i>
+            </div>
+            <div
+              class="w-8 h-8 rounded-full bg-surface-container-highest border-2 border-white flex items-center justify-center text-xs">
+              <i class="ph ph-google-logo"></i>
+            </div>
+          </div>
+          <span class="font-label-tiny text-label-tiny text-text-secondary">Profiles fully synchronized</span>
+        </div>
+      </div>
+
+      <div
+        class="col-span-6 bg-white p-6 rounded-xl border border-border-default large-card-shadow hover-card transition-soft"
+        [style.transform]="getCardTransform(4)">
+        <div class="mb-3">
+          <span class="font-label-tiny text-label-tiny text-text-muted uppercase tracking-tighter">Your Pipeline</span>
+        </div>
+        <div class="space-y-2">
+          <div class="flex justify-between items-center text-body-sm">
+            <span class="text-text-secondary">High-Intent Matches</span>
+            <span class="font-bold text-text-primary">14</span>
+          </div>
+          <div class="w-full h-1.5 bg-surface-container rounded-full overflow-hidden">
+            <div class="h-full bg-primary w-[70%] rounded-full"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="absolute -bottom-12 -right-12 w-[120%] h-[120%] z-[-1] opacity-40">
+        <div class="w-full h-full solarized-gradient rounded-3xl border border-border-default transform rotate-2"></div>
+      </div>
+    </div>
+
+    <div class="absolute bottom-8 left-0 w-full text-center">
+      <p class="font-body-sm text-body-sm text-text-muted px-section-padding-desktop">
+        Secure, high-focus pipelines to streamline your technical career transition.
+      </p>
+    </div>
+  </section>
+</main>
