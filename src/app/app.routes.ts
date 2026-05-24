@@ -9,7 +9,7 @@ export const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: 'register',
+        redirectTo: 'landing',
         pathMatch: 'full'
       },
       {
@@ -23,6 +23,12 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./modules/auth/pages/register')
             .then(m => m.Register)
+      },
+      {
+        path: 'landing',
+        loadComponent: () =>
+          import('./modules/landing/pages/landing')
+            .then(m => m.Landing)
       }
     ]
   }
