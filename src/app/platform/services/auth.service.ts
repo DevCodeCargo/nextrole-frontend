@@ -105,4 +105,14 @@ export class AuthService {
       }),
     );
   }
+
+  register(payload: RegisterRequest): Observable<ApiResponse<LoginData>> {
+    return this.http.post<ApiResponse<LoginData>>(`${this.apiUrl}/auth/register`, payload).pipe(
+      tap((response) => {
+        if (response.success && response.data?.accessToken) {
+          this.saveSession(response.data);
+        }
+      }),
+    );
+  }
 }

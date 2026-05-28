@@ -28,6 +28,7 @@ export class Landing {
   }
 
   onSignUpSubmit(event: Event) {
+
     event.preventDefault();
 
     let exp: RegExp = new RegExp(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/);

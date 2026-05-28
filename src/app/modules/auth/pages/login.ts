@@ -17,7 +17,6 @@ export class Login {
 
   private authService = inject(AuthService);
 
-  errorMessage: string = "";
   isLoading = signal(false);
 
   constructor() {
@@ -35,7 +34,6 @@ export class Login {
   }
 
   onLoginSubmit(): void {
-    this.errorMessage = '';
     this.isLoading.set(true);
 
     const observer: Partial<Observer<ApiResponse<LoginData>>> = {
@@ -44,11 +42,6 @@ export class Login {
         // later: store token + navigate
       },
       error: (err) => {
-        if (err.error?.message) {
-          this.errorMessage = err.error.message;
-        } else {
-          this.errorMessage = 'Something went wrong. Please try again.';
-        }
       }
     };
 

@@ -13,10 +13,12 @@ export const httpErrorInterceptor: HttpInterceptorFn = (request, next) => {
   return next(request).pipe(
     catchError((error: HttpErrorResponse) => {
 
+      let msg = error.error.message || error.message
+
       switch (error.status) {
         case 400:
           toastService.show(
-            error.message || 'Invalid request.',
+            msg || 'Invalid request.',
             'error',
             'Bad Request'
           );
@@ -44,7 +46,7 @@ export const httpErrorInterceptor: HttpInterceptorFn = (request, next) => {
 
         case 404:
           toastService.show(
-            error.message || 'Requested resource was not found.',
+            msg || 'Requested resource was not found.',
             'error',
             'Not Found'
           );
@@ -52,9 +54,17 @@ export const httpErrorInterceptor: HttpInterceptorFn = (request, next) => {
 
         case 406:
           toastService.show(
-            error.message || 'Operation could not be completed.',
+            msg || 'Operation could not be completed.',
             'warning',
             'Validation'
+          );
+          break;
+
+        case 409:
+          toastService.show(
+            msg || 'Resource already exists.',
+            'warning',
+            'Conflict'
           );
           break;
 
@@ -68,7 +78,7 @@ export const httpErrorInterceptor: HttpInterceptorFn = (request, next) => {
 
         default:
           toastService.show(
-            error.message || 'An unexpected error occurred.',
+            msg || 'An unexpected error occurred.',
             'error',
             'Error'
           );

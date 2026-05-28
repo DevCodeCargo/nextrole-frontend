@@ -1,9 +1,10 @@
 import { Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { AuthService, RegisterRequest } from '../../../platform/services/auth.service';
+import { AuthService, LoginData, RegisterRequest } from '../../../platform/services/auth.service';
 import { CommonModule } from '@angular/common';
 import { ApiResponse } from '../../../platform/models/api/api.model';
 import { StorageHelper } from '../../../platform/utils/storage-helper';
+import { finalize, Observer } from 'rxjs';
 
 @Component({
   selector: 'nr-register',
@@ -16,7 +17,7 @@ export class Register {
     confirmPassword: string
   };
 
-  isLoading: boolean = false;
+  isLoading = signal(false);
   showConfirmPassword = false;
 
   private authService = inject(AuthService);
@@ -39,6 +40,7 @@ export class Register {
   // Input focus trackers
   activeFocus = signal<string | null>(null);
 
+
   // Parallax coordinates tracking
   xAxis = signal<number>(0);
   yAxis = signal<number>(0);
@@ -52,8 +54,25 @@ export class Register {
     this.activeFocus.set(null);
   }
 
-  onRegisterSubmit(event: Event) {
-    console.log(this.model);
+  onRegisterSubmit(event: Event): void {
+
+    this.isLoading.set(true);
+
+    const observer: Partial<Observer<ApiResponse<LoginData>>> = {
+      next: (res) => {
+        console.log(res);
+        // later: store token + navigate
+      },
+      error: (err) => {
+
+      }
+    };
+
+    this.authService.register(this.model)
+      .pipe(
+        finalize(() => this.isLoading.set(false))
+      )
+      .subscribe(observer);
   }
 
   // Modern Parallax Event Processing

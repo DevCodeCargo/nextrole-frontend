@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { NotFound } from './platform/utils/exception-handling/not-found';
 
 export const routes: Routes = [
   {
@@ -29,7 +30,12 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./modules/landing/pages/landing')
             .then(m => m.Landing)
-      }
+      },
+      {
+        path: '**',
+        component: NotFound,
+        pathMatch: 'full'
+      },
     ]
   }
 ];
