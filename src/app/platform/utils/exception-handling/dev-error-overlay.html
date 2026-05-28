@@ -1,0 +1,80 @@
+@if (error()) {
+<div class="fixed inset-0 z-[99999] flex items-center justify-center bg-black/20 backdrop-blur-sm p-4">
+  <div class="w-full max-w-4xl rounded-xl border border-border-default bg-white shadow-2xl overflow-hidden">
+
+    <!-- Header -->
+    <div class="flex items-center gap-3 border-b border-border-default px-8 py-6">
+      <i class="ph-bold ph-warning-circle text-danger text-2xl"></i>
+      <h2 class="font-headline-md text-xl font-bold text-text-primary tracking-tight">
+        Frontend Runtime Exception
+      </h2>
+    </div>
+
+    <!-- Body -->
+    <div class="p-8 space-y-6 bg-white">
+      <!-- Error Message -->
+      <div class="text-danger font-medium font-body-sm leading-relaxed">
+        {{ error()?.message }}
+      </div>
+
+      <!-- Stack Trace Box -->
+      <div class="rounded-xl bg-surface-container p-6 border border-border-default">
+        <div class="flex justify-between items-center mb-4">
+          <span class="font-label-tiny text-text-muted uppercase tracking-widest">Stack Trace</span>
+          <span class="text-[10px] text-text-muted font-mono">main.js:2048</span>
+        </div>
+        <pre class="overflow-auto max-h-[300px] text-[13px] leading-6 text-text-secondary font-mono no-scrollbar">
+{{ error()?.stack }}
+        </pre>
+      </div>
+
+      <!-- Metadata Grid (4 Columns) -->
+      <div class="grid grid-cols-4 gap-4 rounded-xl border border-border-default p-5 bg-surface-container-low">
+        <div class="space-y-1">
+          <div class="text-[10px] font-bold text-text-muted uppercase tracking-wider">Route</div>
+          <div class="text-sm text-text-primary font-medium truncate">{{ error()?.route }}</div>
+        </div>
+        <div class="space-y-1">
+          <div class="text-[10px] font-bold text-text-muted uppercase tracking-wider">Environment</div>
+          <div class="flex items-center gap-1.5 text-sm text-text-primary font-medium">
+            <span class="h-2 w-2 rounded-full bg-warning"></span>
+            development
+          </div>
+        </div>
+        <div class="space-y-1">
+          <div class="text-[10px] font-bold text-text-muted uppercase tracking-wider">Timestamp</div>
+          <div class="text-sm text-text-primary font-medium">{{ error()?.timestamp }}</div>
+        </div>
+        <div class="space-y-1">
+          <div class="text-[10px] font-bold text-text-muted uppercase tracking-wider">Browser</div>
+          <div class="text-sm text-text-primary font-medium">Chrome 124.0.0</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="flex justify-end items-center gap-3 px-8 py-5 bg-surface-container-low border-t border-border-default">
+      <button (click)="dismiss()"
+        class="px-6 py-2.5 text-sm font-semibold text-text-secondary hover:text-text-primary transition-standard cursor-pointer">
+        Dismiss Overlay
+      </button>
+
+      <button (click)="copy()"
+        class="flex items-center gap-2 rounded-lg bg-surface-container-highest border border-border-strong px-5 py-2.5 text-sm font-bold text-text-primary hover:bg-border-default transition-standard cursor-pointer">
+        @if (copied()) {
+        <i class="ph-bold ph-check text-success"></i>
+        } @else {
+        <i class="ph ph-copy"></i>
+        }
+        Copy Error Details
+      </button>
+
+      <button (click)="reload()"
+        class="flex items-center gap-2 rounded-lg bg-primary text-white px-5 py-2.5 text-sm font-bold hover:bg-blue-hover transition-standard shadow-md active:scale-95 cursor-pointer">
+        <i class="ph ph-arrows-clockwise"></i>
+        Reload Application
+      </button>
+    </div>
+  </div>
+</div>
+}

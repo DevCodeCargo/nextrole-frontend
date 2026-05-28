@@ -1,0 +1,65 @@
+<div class="fixed top-4 right-4 left-4 md:left-auto md:w-[400px] flex flex-col gap-3 z-50 pointer-events-none">
+  @for (toast of toastService.toasts(); track toast.id) {
+  <div
+    class="toast-entrance tactile-card rounded-[12px] overflow-hidden flex flex-col transition-all duration-300 pointer-events-auto shadow-sm"
+    style="border-left: 4px solid;" [style.border-left-color]="
+           toast.type === 'success' ? '#5E8C61' : 
+           toast.type === 'error' ? '#B65D5D' : 
+           toast.type === 'warning' ? '#C99A2E' : '#2f5f8d'
+         ">
+
+    <div class="p-4 flex gap-3 items-start">
+      <div class="flex-shrink-0" [style.color]="
+               toast.type === 'success' ? '#5E8C61' : 
+               toast.type === 'error' ? '#B65D5D' : 
+               toast.type === 'warning' ? '#C99A2E' : '#2f5f8d'
+             ">
+        @if (toast.type === 'success') {
+        <i class="ph-fill ph-check-circle text-[20px]"></i>
+        } @else if (toast.type === 'error') {
+        <i class="ph-fill ph-x-circle text-[20px]"></i>
+        } @else if (toast.type === 'warning') {
+        <i class="ph-fill ph-warning-octagon text-[20px]"></i>
+        } @else {
+        <i class="ph-fill ph-info text-[20px]"></i>
+        }
+      </div>
+
+      <div class="flex-grow">
+        @if (toast.title) {
+        <h4 class="font-headline-md text-[14px] font-semibold text-text-primary">{{ toast.title }}</h4>
+        }
+        <p class="font-body-sm text-text-secondary mt-1">{{ toast.message }}</p>
+      </div>
+
+      <div class="flex items-center gap-2 flex-shrink-0">
+        <button
+          class="text-text-muted hover:text-text-primary transition-all cursor-pointer p-1 rounded-md hover:bg-surface-container flex items-center justify-center relative group"
+          (click)="copyToastContent(toast)">
+          @if (copiedToastId() === toast.id) {
+          <i class="ph-bold ph-check text-[16px] text-success animate-scale-up"></i>
+          <span
+            class="absolute -top-8 left-1/2 -translate-x-1/2 bg-inverse-surface text-inverse-on-surface text-[10px] px-2 py-0.5 rounded shadow-xs font-medium whitespace-nowrap">
+            Copied!
+          </span>
+          } @else {
+          <i class="ph ph-copy text-[16px]"></i>
+          }
+        </button>
+
+        <button
+          class="text-text-muted hover:text-text-primary transition-all cursor-pointer p-1 rounded-md hover:bg-surface-container flex items-center justify-center"
+          (click)="toastService.dismiss(toast.id)">
+          <i class="ph ph-x text-[18px]"></i>
+        </button>
+      </div>
+    </div>
+
+    @if (toast.type === 'success') {
+    <div class="h-1 w-full" style="background-color: rgba(94, 140, 97, 0.1);">
+      <div class="progress-bar-fill h-full" style="background-color: #5E8C61;"></div>
+    </div>
+    }
+  </div>
+  }
+</div>

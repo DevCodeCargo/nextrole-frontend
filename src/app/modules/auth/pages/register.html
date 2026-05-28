@@ -42,7 +42,7 @@
           <p class="font-body-sm text-body-sm text-text-secondary">Let's get you closer to your next opportunity.</p>
         </div>
 
-        <form class="space-y-5">
+        <form class="space-y-5" (ngSubmit)="onRegisterSubmit($event)">
           <div class="space-y-1.5">
             <label class="font-label-tiny text-label-tiny text-text-muted uppercase tracking-wider">Email
               Address</label>
@@ -148,7 +148,7 @@
             <button type="submit" [disabled]="!canRegister"
               class="w-full h-[48px] bg-primary hover:bg-blue-hover disabled:bg-border-default disabled:text-text-muted disabled:cursor-not-allowed text-white font-body-sm font-semibold rounded-lg transition-soft active:scale-[0.98] flex items-center justify-center gap-2 cursor-pointer">
 
-              @if(isLoading){
+              @if(isLoading()){
 
               <i class="ph ph-spinner-gap animate-spin text-[18px]"></i>
               Creating Account...

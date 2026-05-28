@@ -3,6 +3,7 @@ import { AuthService, EmailCheckRequest } from '../../../platform/services/auth.
 import { FormsModule } from '@angular/forms';
 import { StorageHelper } from '../../../platform/utils/storage-helper';
 import { Router } from '@angular/router';
+import { ToastService } from '../../../platform/services/toast.service';
 
 @Component({
   selector: 'app-landing',
@@ -19,6 +20,7 @@ export class Landing {
 
   private authService = inject(AuthService);
   private router = inject(Router);
+  private toast = inject(ToastService);
 
   @HostListener('window:scroll', [])
   onWindowScroll() {
@@ -26,6 +28,7 @@ export class Landing {
   }
 
   onSignUpSubmit(event: Event) {
+
     event.preventDefault();
 
     let exp: RegExp = new RegExp(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/);
@@ -43,15 +46,29 @@ export class Landing {
         StorageHelper.setSession('email', this.emailId());
 
         if (res.data.exists) {
+          this.toast.show(
+            'Email already exists. Please try logging in.',
+            'info',
+            'Email Exists'
+          );
           this.router.navigate(['/login']);
         } else {
+          this.toast.show(
+            'Email is available. Let\'s get you started.',
+            'success',
+            'Email Available'
+          );
           this.router.navigate(['/register']);
         }
 
       });
 
     } else {
-      console.error("Email Id is not valid");
+      this.toast.show(
+        'Please enter a valid email address',
+        'error',
+        'Invalid Email'
+      );
     }
 
   }
